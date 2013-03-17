@@ -2,7 +2,7 @@
 
   "name": "W3schoolEX",
   "version": "0.1",
-  "description": "Removes all w3school entries from google search results",
+  "description": "Removes all w3school entries from google search results. Get the code: https://github.com/cioddi/w3schoolEXX",
   "icons": { "16": "icons/icon16.png",
              "48": "icons/icon48.png",
             "128": "icons/icon128.png" },
