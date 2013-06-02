@@ -1,10 +1,13 @@
-// Why jQuery?
 function inject(){
     var searchEl,
 	removeW3Schools = function () {
+        // Search only on #search, for faster results:
         searchEl = document.getElementById('search');
+        if (!searchEl) {
+            searchEl = document.body;
+        }
     
-        // But it is weird:
+        // Why jQuery?
 		var iterator = document.evaluate('//OL[@id="rso"]/li/div/h3/a[contains(@href,"w3schools")]/../../..', searchEl, null, XPathResult.ANY_TYPE, null)
  
 		try {
@@ -19,6 +22,8 @@ function inject(){
 			// Error: Document tree modified during iteration'
             setTimeout(removeW3Schools, 1500);
 		}
+        
+        // Run the funcion again when the DOM changes:
         searchEl.removeEventListener('DOMNodeInserted');
         searchEl.addEventListener('DOMNodeInserted', throttle, false);
         searchEl.addEventListener('DOMNodeRemoved', throttle, false);
@@ -32,10 +37,16 @@ function inject(){
         throttleTimer = setTimeout(removeW3Schools, 500);
     };
     
-    // Init
+    // Init on the load event and on script injection:
     window.addEventListener('load', throttle, false);
     throttle();
 }
+
+
+/* Inject the script:
+ I personally prefer this way to gain access to a greater
+ number of javascript functions
+ but it can easily disabled, if you prefer. */
 
 var s = document.createElement('script');
 s.innerHTML = '~' + inject.toString() + '()';
